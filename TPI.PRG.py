@@ -11,8 +11,8 @@ def adivina_numero():
     print("   ADIVINA EL NUMERO  (1 - 100)")
     print("========================================")
 
-    semilla = int(input("Ingresa cualquier numero para empezar: "))
-    secreto = (semilla % 100) + 1
+    numerito = int(input("Ingresa cualquier numero para empezar: "))
+    secreto = (numerito % 100) + 6
     intentos = 0
 
     print("\nTenes 8 intentos. Buena suerte!\n")
@@ -22,6 +22,7 @@ def adivina_numero():
         try:
             guess = int(entrada)
         except:
+
             print("  Ingresa un numero entero.")
         else:
             intentos += 1
@@ -186,7 +187,7 @@ def guardar_puntaje(usuario, juego, resultado):
 def ver_puntajes():
     print("========================================")
     print("           TABLA DE PUNTAJES")
-    print("========================================")
+    print("==========================F==============")
     try:
         archivo = open("puntajes.txt", "r")
         lineas = archivo.readlines()
