@@ -1,17 +1,10 @@
 
-# ─────────────────────────────────────────────
-#  INGRESO DE USUARIO
-# ─────────────────────────────────────────────
-
 print("========================================")
-print("          Play.in EduGames       ")
+print("          Play.In EduGames        ")
 print("========================================")
 usuario = input("  Ingresa tu nombre de usuario: ")
 print(f"\n  Bienvenido, {usuario}!")
 
-# ─────────────────────────────────────────────
-#  JUEGO 1 - Adivina el numero
-# ─────────────────────────────────────────────
 
 def adivina_numero():
     print("========================================")
@@ -43,9 +36,7 @@ def adivina_numero():
     print(f"\n  Te quedaste sin intentos. El numero era {secreto}.")
     return "perdio"
 
-# ─────────────────────────────────────────────
-#  JUEGO 2 - Piedra, Papel, Tijeras
-# ─────────────────────────────────────────────
+
 
 def piedra_papel_tijeras():
     print("========================================")
@@ -92,9 +83,7 @@ def piedra_papel_tijeras():
         print("  Empate total!")
         return f"empate {puntos_j}-{puntos_pc}"
 
-# ─────────────────────────────────────────────
-#  JUEGO 3 - Mayor o Menor
-# ─────────────────────────────────────────────
+
 
 def mayor_o_menor():
     print("========================================")
@@ -141,11 +130,9 @@ def mayor_o_menor():
         print("  Mala suerte, segui intentando.")
     return f"{aciertos}/7 aciertos"
 
-# ─────────────────────────────────────────────
-#  JUEGO 4 - Trivia
-# ─────────────────────────────────────────────
 
-PREGUNTAS = [
+
+preguntas = [
     ("Cuanto es 12 x 12?",                               "144"),
     ("En que continente esta Brasil?",                   "america"),
     ("Cuantos lados tiene un hexagono?",                 "6"),
@@ -167,7 +154,7 @@ def trivia():
     correctas = 0
 
     for num in range(10):
-        pregunta, respuesta = PREGUNTAS[num]
+        pregunta, respuesta = preguntas[num]
         print(f"  Pregunta {num + 1}: {pregunta}")
         entrada = input("  Tu respuesta: ")
 
@@ -188,61 +175,8 @@ def trivia():
         print("  A estudiar un poco mas...")
     return f"{correctas}/10 correctas"
 
-# ─────────────────────────────────────────────
-#  JUEGO 5 - Duelo de Dados
-# ─────────────────────────────────────────────
 
-def dados():
-    print("========================================")
-    print("   DUELO DE DADOS")
-    print("========================================")
-    print("Vos y la PC tiran 3 dados cada uno.")
-    print("Gana quien sume mas. 5 rondas.\n")
 
-    semilla = int(input("Ingresa cualquier numero para empezar: "))
-    puntos_j = 0
-    puntos_pc = 0
-
-    for ronda in range(1, 6):
-        print(f"\n  -- Ronda {ronda}/5 --")
-        input("  Presiona ENTER para tirar los dados...")
-
-        d1 = (semilla + ronda * 7)  % 6 + 1
-        d2 = (semilla + ronda * 13) % 6 + 1
-        d3 = (semilla + ronda * 19) % 6 + 1
-        suma_j = d1 + d2 + d3
-
-        p1 = (semilla + ronda * 11) % 6 + 1
-        p2 = (semilla + ronda * 17) % 6 + 1
-        p3 = (semilla + ronda * 23) % 6 + 1
-        suma_pc = p1 + p2 + p3
-
-        print(f"  Tus dados:    {d1}  {d2}  {d3}  -> suma: {suma_j}")
-        print(f"  Dados de PC:  {p1}  {p2}  {p3}  -> suma: {suma_pc}")
-
-        if suma_j > suma_pc:
-            print("  Ganaste la ronda!")
-            puntos_j += 1
-        elif suma_pc > suma_j:
-            print("  Gano la PC.")
-            puntos_pc += 1
-        else:
-            print("  Empate.")
-
-    print(f"\n  Resultado final -> Vos: {puntos_j}  |  PC: {puntos_pc}")
-    if puntos_j > puntos_pc:
-        print("  Ganaste el duelo!")
-        return f"gano {puntos_j}-{puntos_pc}"
-    elif puntos_pc > puntos_j:
-        print("  Perdiste el duelo.")
-        return f"perdio {puntos_j}-{puntos_pc}"
-    else:
-        print("  Empate total!")
-        return f"empate {puntos_j}-{puntos_pc}"
-
-# ─────────────────────────────────────────────
-#  PUNTAJES
-# ─────────────────────────────────────────────
 
 def guardar_puntaje(usuario, juego, resultado):
     archivo = open("puntajes.txt", "a")
@@ -265,9 +199,6 @@ def ver_puntajes():
     except:
         print("  Todavia no hay puntajes guardados.")
 
-# ─────────────────────────────────────────────
-#  MENU PRINCIPAL
-# ─────────────────────────────────────────────
 
 while True:
     print("\n========================================")
@@ -277,8 +208,7 @@ while True:
     print("  2. Piedra, Papel, Tijeras")
     print("  3. Mayor o Menor")
     print("  4. Trivia")
-    print("  5. Duelo de Dados")
-    print("  6. Ver puntajes")
+    print("  5. Ver puntajes")
     print("  0. Salir")
     print("========================================")
 
@@ -299,9 +229,6 @@ while True:
         resultado = trivia()
         guardar_puntaje(usuario, "Trivia", resultado)
     elif opcion == "5":
-        resultado = dados()
-        guardar_puntaje(usuario, "Duelo de Dados", resultado)
-    elif opcion == "6":
         ver_puntajes()
         opcion = "x"
     else:
