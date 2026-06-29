@@ -26,9 +26,9 @@ def adivina_numero():
         else:
             intentos += 1
             if guess < secreto:
-                print("  Demasiado bajo.\n")
+                print("  El numero es bajo.\n")
             elif guess > secreto:
-                print("  Demasiado alto.\n")
+                print("  El numero es alto.\n")
             else:
                 print(f"\n  Correcto! Lo adivinaste en {intentos} intento(s).")
                 return f"gano en {intentos} intentos"
