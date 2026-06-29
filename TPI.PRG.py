@@ -4,7 +4,7 @@
 # ─────────────────────────────────────────────
 
 print("========================================")
-print("         Play.in EduGames      ")
+print("          Play.in EduGames       ")
 print("========================================")
 usuario = input("  Ingresa tu nombre de usuario: ")
 print(f"\n  Bienvenido, {usuario}!")
@@ -38,9 +38,10 @@ def adivina_numero():
                 print("  Demasiado alto.\n")
             else:
                 print(f"\n  Correcto! Lo adivinaste en {intentos} intento(s).")
-                return
+                return f"gano en {intentos} intentos"
 
     print(f"\n  Te quedaste sin intentos. El numero era {secreto}.")
+    return "perdio"
 
 # ─────────────────────────────────────────────
 #  JUEGO 2 - Piedra, Papel, Tijeras
@@ -83,10 +84,13 @@ def piedra_papel_tijeras():
     print(f"  Resultado -> Vos: {puntos_j}  |  PC: {puntos_pc}")
     if puntos_j > puntos_pc:
         print("  Ganaste el partido!")
+        return f"gano {puntos_j}-{puntos_pc}"
     elif puntos_j < puntos_pc:
         print("  Perdiste el partido.")
+        return f"perdio {puntos_j}-{puntos_pc}"
     else:
         print("  Empate total!")
+        return f"empate {puntos_j}-{puntos_pc}"
 
 # ─────────────────────────────────────────────
 #  JUEGO 3 - Mayor o Menor
@@ -135,6 +139,7 @@ def mayor_o_menor():
         print("  Bien!")
     else:
         print("  Mala suerte, segui intentando.")
+    return f"{aciertos}/7 aciertos"
 
 # ─────────────────────────────────────────────
 #  JUEGO 4 - Trivia
@@ -181,6 +186,7 @@ def trivia():
         print("  Pasable.")
     else:
         print("  A estudiar un poco mas...")
+    return f"{correctas}/10 correctas"
 
 # ─────────────────────────────────────────────
 #  JUEGO 5 - Duelo de Dados
@@ -226,10 +232,38 @@ def dados():
     print(f"\n  Resultado final -> Vos: {puntos_j}  |  PC: {puntos_pc}")
     if puntos_j > puntos_pc:
         print("  Ganaste el duelo!")
+        return f"gano {puntos_j}-{puntos_pc}"
     elif puntos_pc > puntos_j:
         print("  Perdiste el duelo.")
+        return f"perdio {puntos_j}-{puntos_pc}"
     else:
         print("  Empate total!")
+        return f"empate {puntos_j}-{puntos_pc}"
+
+# ─────────────────────────────────────────────
+#  PUNTAJES
+# ─────────────────────────────────────────────
+
+def guardar_puntaje(usuario, juego, resultado):
+    archivo = open("puntajes.txt", "a")
+    archivo.write(f"{usuario} | {juego} | {resultado}\n")
+    archivo.close()
+
+def ver_puntajes():
+    print("========================================")
+    print("           TABLA DE PUNTAJES")
+    print("========================================")
+    try:
+        archivo = open("puntajes.txt", "r")
+        lineas = archivo.readlines()
+        archivo.close()
+        if lineas:
+            for linea in lineas:
+                print(f"  {linea}", end="")
+        else:
+            print("  Todavia no hay puntajes guardados.")
+    except:
+        print("  Todavia no hay puntajes guardados.")
 
 # ─────────────────────────────────────────────
 #  MENU PRINCIPAL
@@ -244,6 +278,7 @@ while True:
     print("  3. Mayor o Menor")
     print("  4. Trivia")
     print("  5. Duelo de Dados")
+    print("  6. Ver puntajes")
     print("  0. Salir")
     print("========================================")
 
@@ -252,21 +287,30 @@ while True:
     if opcion == "0":
         break
     elif opcion == "1":
-        adivina_numero()
+        resultado = adivina_numero()
+        guardar_puntaje(usuario, "Adivina el numero", resultado)
     elif opcion == "2":
-        piedra_papel_tijeras()
+        resultado = piedra_papel_tijeras()
+        guardar_puntaje(usuario, "Piedra Papel Tijeras", resultado)
     elif opcion == "3":
-        mayor_o_menor()
+        resultado = mayor_o_menor()
+        guardar_puntaje(usuario, "Mayor o Menor", resultado)
     elif opcion == "4":
-        trivia()
+        resultado = trivia()
+        guardar_puntaje(usuario, "Trivia", resultado)
     elif opcion == "5":
-        dados()
+        resultado = dados()
+        guardar_puntaje(usuario, "Duelo de Dados", resultado)
+    elif opcion == "6":
+        ver_puntajes()
+        opcion = "x"
     else:
         print("  Opcion invalida.")
         opcion = "x"
 
     if opcion != "x":
-        print("\n  M - Volver al menu  |  0 - Salir")
+        print("\n  Puntaje guardado!")
+        print("  M - Volver al menu  |  0 - Salir")
         accion = input("  Tu eleccion: ")
         if accion != "M" and accion != "m":
             break
